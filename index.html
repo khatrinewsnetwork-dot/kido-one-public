@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KIDO ONE REMOTE</title>
+<style>
+body{margin:0;background:#080e20;color:white;font-family:Arial;text-align:center;padding:22px}
+h1{color:#00e5ff}
+.card{background:#17243d;border:1px solid #287b9a;border-radius:18px;padding:22px;margin:14px 0}
+button{background:#00d4ee;color:#06101d;border:0;border-radius:14px;padding:18px;width:100%;font-size:18px;font-weight:bold;margin:8px 0}
+#status{color:#60ffa8;padding:15px}
+</style>
+</head>
+<body>
+<button onclick="let a=new AudioContext(),o=a.createOscillator();o.connect(a.destination);o.start();o.stop(a.currentTime+0.3)">🎵 PLAY MUSIC</button>
+<h1>🔱 KIDO ONE</h1>
+<p>🎛️ AI MASTER REMOTE</p>
+<div class="card">
+<h2>🪷 BRAHMA</h2>
+<button onclick="show('CREATE')">CREATE 🧬</button>
+<h2>🛡️ VISHNU</h2>
+<button onclick="show('PROTECT')">PROTECT 🌍</button>
+<h2>🔱 MAHESH</h2>
+<button onclick="show('TRANSFORM')">TRANSFORM ⚡</button>
+</div>
+<button onclick="show('STEP COMPLETE')">STEP COMPLETE ✅</button>
+<p id="status">SYSTEM READY</p>
+<small>DEMO MODE · HUMAN APPROVAL REQUIRED</small>
+<script>
+function show(action){
+document.getElementById('status').textContent=action+' SELECTED ✅';
+}
+</script>
+<button id="kido-voice-btn" onclick="window.speechSynthesis.cancel();var v=new SpeechSynthesisUtterance('KIDO AI Voice Ready');v.lang='en-US';v.onstart=()=>alert('VOICE STARTED');v.onerror=e=>alert('VOICE ERROR: '+e.error);window.speechSynthesis.speak(v)">🔊 SPEAK</button>
+<button id="kido-hindi-btn" onclick="speechSynthesis.cancel();var v=new SpeechSynthesisUtterance('वाहेगुरु जी, किडो ए आई तैयार है');v.lang='hi-IN';speechSynthesis.speak(v)">🗣️ हिंदी बोलो</button>
+
+<div id="kido-human-controls" style="text-align:center;padding:20px">
+<h2>🧡 HUMAN CONTROL</h2>
+<button onclick="show('APPROVE DEMO')">✅ APPROVE</button>
+<button onclick="show('SELECT DEMO')">🔘 SELECT</button>
+<button onclick="show('REJECT DEMO')">❌ REJECT</button>
+<p>🔐 DEMO ONLY - NO AI EXECUTION</p>
+</div>
+
+<div style="text-align:center;padding:20px">
+<button id="kido-api-check"
+onclick="checkKidoAPI()">
+🔘 CHECK AI BRIDGE
+</button>
+<p id="kido-api-result">API NOT CHECKED</p>
+</div>
+<script>
+async function checkKidoAPI(){
+ const el=document.getElementById('kido-api-result');
+ el.textContent='CHECKING...';
+ try {
+  const r=await Promise.reject(Error('PUBLIC DEMO - API NOT CONNECTED'));
+  if(!r.ok) throw Error('HTTP '+r.status);
+  const d=await r.json();
+  el.textContent='BRIDGE: '+d.status+
+    ' | EXECUTION: '+d.execution;
+ } catch(e) {
+  el.textContent='PUBLIC DEMO - AI BRIDGE NOT CONNECTED';
+ }
+}
+</script>
+</body>
+</html>
